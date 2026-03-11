@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nan Deng · Personal Site</title>
+    <!-- Inter font (clean English font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* 暗黑模式样式 */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .sidebar h1,
+        body.dark-mode section h2,
+        body.dark-mode .exp-header h3 {
+            color: #f3f4f6;
+        }
+
+        body.dark-mode .role,
+        body.dark-mode .bio-text,
+        body.dark-mode .exp-sub,
+        body.dark-mode .exp-date,
+        body.dark-mode .pub-venue {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .intro-section {
+            background: #2d2d2d;
+        }
+
+        body.dark-mode .intro-text {
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .contact-links a,
+        body.dark-mode footer {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .contact-links a:hover {
+            color: #fff;
+        }
+
+        body.dark-mode .exp-desc {
+            color: #d1d5db;
+        }
+
+        /* 右上角按钮容器 */
+        .top-right-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 40px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: #e5e7eb;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.1rem;
+            color: #fbbf24; /* 太阳颜色 */
+        }
+
+        body.dark-mode .theme-toggle i {
+            color: #a78bfa; /* 月亮颜色 */
+        }
+
+        /* 搜索按钮 */
+        .search-btn {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 40px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        body.dark-mode .search-btn {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: #e5e7eb;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-btn i {
+            font-size: 1.1rem;
+            color: #3b82f6; /* 蓝色 */
+        }
+
+        body.dark-mode .search-btn i {
+            color: #60a5fa; /* 暗黑模式下的蓝色 */
+        }
+
+        /* 搜索模态框 */
+        .search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .search-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 100px;
+        }
+
+        .search-container {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        body.dark-mode .search-container {
+            background: #2d2d2d;
+            border: 1px solid #404040;
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .close-search:hover {
+            color: #111;
+        }
+
+        body.dark-mode .close-search:hover {
+            color: #fff;
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 40px;
+            padding: 8px 16px;
+        }
+
+        body.dark-mode .search-input-wrapper {
+            border-color: #404040;
+        }
+
+        .search-input-wrapper i {
+            color: #9ca3af;
+        }
+
+        #searchInput {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 8px 0;
+            background: transparent;
+        }
+
+        body.dark-mode #searchInput {
+            color: #e5e7eb;
+        }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        body.dark-mode .search-result-item {
+            border-bottom-color: #404040;
+        }
+
+        .search-result-item:hover {
+            background: #f3f4f6;
+        }
+
+        body.dark-mode .search-result-item:hover {
+            background: #374151;
+        }
+
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .result-category {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        /* 两栏布局容器 */
+        .main {
+            display: flex;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 4rem;
+        }
+
+        /* 左侧栏 */
+        .sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 2rem;
+            align-self: flex-start;
+            padding-right: 1rem;
+        }
+
+        .avatar {
+            margin-bottom: 1.8rem;
+        }
+
+        .avatar img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h1 {
+            font-size: 2rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+            color: #111;
+        }
+
+        .sidebar .role {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 1.2rem;
+        }
+
+        .sidebar .bio-text {
+            color: #374151;
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+        }
+
+        /* 联系链接 */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .contact-links a {
+            color: #374151;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            transition: color 0.15s;
+        }
+
+        .contact-links a i {
+            width: 24px;
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .contact-links a:hover {
+            color: #000;
+        }
+
+        .contact-links a:hover i {
+            color: #111;
+        }
+
+        /* 右侧内容栏 */
+        .content {
+            flex: 1;
+            max-width: 700px;
+        }
+
+        /* 自我介绍区域 */
+        .intro-section {
+            background: #f2f4f8;
+            padding: 1.8rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .intro-text {
+            color: #1f2937;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .intro-text a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .intro-text a:hover {
+            color: #1e4f9e;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            font-weight: 560;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.8rem;
+            color: #111;
+            display: flex;
+            align-items: center;
+        }
+
+        section h2 i {
+            margin-right: 12px;
+            color: #6b7280;
+            font-size: 1.3rem;
+            width: 28px;
+        }
+
+        /* News 区域样式 */
+        .news-item {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .news-date {
+            min-width: 120px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .news-content {
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .news-item {
+            border-bottom-color: #404040;
+        }
+
+        body.dark-mode .news-date {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .news-content {
+            color: #d1d5db;
+        }
+
+        /* 出版项目列表 */
+        .pub-item {
+            margin-bottom: 1.8rem;
+        }
+
+        .pub-none {
+            color: #6b7280;
+            font-style: italic;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .pub-title {
+            font-size: 1.15rem;
+            font-weight: 520;
+            margin-bottom: 0.2rem;
+        }
+
+        .pub-title a {
+            color: #111827;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.1s;
+        }
+
+        .pub-title a:hover {
+            border-bottom-color: #111;
+        }
+
+        .pub-authors {
+            color: #4b5563;
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .pub-venue {
+            color: #6b7280;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .pub-tag {
+            background: #f0f2f5;
+            color: #2d2d3a;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+
+        /* 经历条目 */
+        .exp-item {
+            margin-bottom: 2rem;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .exp-header h3 {
+            font-size: 1.2rem;
+            font-weight: 540;
+        }
+
+        .exp-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .exp-sub {
+            color: #4b5563;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .exp-desc {
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        /* 链接样式 */
+        .exp-sub a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .exp-sub a:hover {
+            color: #1e4f9e;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e5e7eb;
+            margin: 2rem 0;
+        }
+
+        footer {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-top: 3rem;
+            padding-top: 1rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 800px) {
+            .main {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 1.5rem;
+            }
+            .sidebar {
+                position: static;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 右上角按钮容器 -->
+    <div class="top-right-buttons">
+        <!-- 搜索按钮 -->
+        <div class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </div>
+        <!-- 黑白模式切换按钮 -->
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-sun"></i>
+            <span>Light / Dark</span>
+        </div>
+    </div>
+
+    <!-- 搜索模态框 -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearchBtn">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Type to search...">
+            </div>
+            <div class="search-results" id="searchResults">
+                <!-- 搜索结果会动态显示在这里 -->
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- 左侧个人信息区 -->
+        <aside class="sidebar">
+            <div class="avatar">
+                <!-- 照片命名为 photo.jpg 放在 images 文件夹 -->
+                <img src="images/photo.jpg">
+            </div>
+            <h1>Nan Deng (邓楠)</h1>
+            <div class="role">University of Macau</div>
+            <div class="bio-text">
+                Faculty of Science and Technology <br>Computer Vision Laboratory
+            </div>
+            
+            <!-- 联系方式 -->
+            <div class="contact-links">
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Macau · China</a>
+                <a href="mailto:cbhsfmf0206@gmail.com">
+                    <i class="far fa-envelope"></i> cbhsfmf0206@gmail.com
+                </a>
+                <a href="https://github.com/elowendeng" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i> github.com/elowendeng
+                </a>
+                <a href="https://www.linkedin.com/in/elowen-nandeng/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </aside>
+
+        <!-- 右侧主要内容区 -->
+        <main class="content">
+            <!-- 自我介绍区域 -->
+            <div class="intro-section">
+                <div class="intro-text">
+                    I am a master student from the <strong>Computer Vision Laboratory</strong>, FST, University of Macau. 
+                    Supervised by <a href="https://aimerykong.github.io/" class="inline-link" target="_blank">Pro. Shu Kong</a>.
+                </div>
+            </div>
+
+            <!-- News 区域-->
+            <section>
+                <h2><i class="fas fa-newspaper"></i> News</h2>
+                
+                <div class="news-item">
+                    <span class="news-date">Feb 15th, 2026</span>
+                    <span class="news-content">Having my personal website! 👻</span>
+                </div>
+            </section>
+
+            <!-- 出版项目 -->
+            <section>
+                <h2><i class="fas fa-book-open"></i> Publications</h2>
+                
+                <div class="pub-none">
+                    None
+                </div>
+            </section>
+
+            <!-- 个人经历 -->
+            <section>
+                <h2><i class="fas fa-briefcase"></i> Experience</h2>
+                
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <h3>M.Sc. in Artificial Intelligence</h3>
+                        <span class="exp-date">2025 – present</span>
+                    </div>
+                    <div class="exp-sub"><a href="https://www.fst.um.edu.mo/" class="inline-link" target="_blank">Faculty of Science and Technology</a> · <a href="https://www.um.edu.mo/zh-hant/" class="inline-link" target="_blank">University of Macau</a></div>
+                    <div class="exp-desc">
+                        Computer Vision Laboratory, supervised by Professor Shu Kong.
+                    </div>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <h3>B.E. in Computer Science and Technology</h3>
+                        <span class="exp-date">2019 – 2023</span>
+                    </div>
+                    <div class="exp-sub"><a href="https://cs.cug.edu.cn/" class="inline-link" target="_blank">School of Computer Science</a> · <a href="https://www.cug.edu.cn/" class="inline-link" target="_blank">China University of Geosciences (Wuhan)</a></div>
+                    <div class="exp-desc">
+                        Graduated with bachelor degree.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 简单的 footer -->
+            <footer>
+                © Elowen · Nan Deng
+            </footer>
+        </main>
+    </div>
+
+    <!-- 黑白模式切换 JavaScript -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // 检查本地存储中的主题设置
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // 切换图标
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 搜索功能
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        // 页面内容数据（用于搜索）
+        const searchData = [
+            { title: "M.Sc. in Artificial Intelligence", category: "Experience", content: "Faculty of Science and Technology, University of Macau" },
+            { title: "B.E. in Computer Science and Technology", category: "Experience", content: "China University of Geosciences (Wuhan)" },
+            { title: "Computer Vision Laboratory", category: "Research", content: "Supervised by Pro. Shu Kong" },
+            { title: "Personal website launch", category: "News", content: "Feb 15th, 2026" },
+            { title: "GitHub", category: "Contact", content: "github.com/elowendeng" },
+            { title: "LinkedIn", category: "Contact", content: "linkedin.com/in/elowen-nandeng" }
+        ];
+
+        // 打开搜索模态框
+        searchBtn.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            searchInput.focus();
+        });
+
+        // 关闭搜索模态框
+        closeSearchBtn.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        });
+
+        // 点击模态框背景关闭
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            }
+        });
+
+        // 搜索功能
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query === '') {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            const results = searchData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.content.toLowerCase().includes(query)
+            );
+
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">No results found</div>';
+                return;
+            }
+
+            let html = '';
+            results.forEach(result => {
+                html += `
+                    <div class="search-result-item">
+                        <div class="result-title">${result.title}</div>
+                        <div class="result-category">${result.category}</div>
+                    </div>
+                `;
+            });
+            searchResults.innerHTML = html;
+
+            // 点击搜索结果
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    searchModal.classList.remove('active');
+                    searchInput.value = '';
+                    searchResults.innerHTML = '';
+                });
+            });
+        });
+
+        // 按 ESC 键关闭搜索
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+                searchModal.classList.remove('active');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
