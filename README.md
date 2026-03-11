@@ -70,9 +70,10 @@ elowendeng.github.io/
    
    - Name your photo `photo.jpg` and place it in the `images/` folder.
    
-4.  **View locally**
+4. **View locally**
    
    - Open the `index.html` file directly in your browser.
+
    - Or use Live Server (VS Code plugin) to start a local server.
 
 ---
@@ -128,3 +129,4 @@ Project Link: [https://github.com/elowendeng/elowendeng.github.io](https://githu
 
 
 **If you find this project helpful, please give it a ⭐️!**
+
