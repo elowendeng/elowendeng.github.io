@@ -27,6 +27,7 @@ This is my personal academic website with a clean two-column layout, featuring p
 ## 🛠️ Tech Stack
 
 - **HTML5** - Page Structure
+
 - **CSS3** - Style Design (Flexbox Layout, CSS Variables, Responsive Design)
 
 - **JavaScript** - Interactive Features (Dark Mode, Real-time Search)
@@ -43,6 +44,7 @@ This is my personal academic website with a clean two-column layout, featuring p
 elowendeng.github.io/
 ├── index.html          # Homepage
 ├── README.md           # Project Description
+├── LICENSE
 ├── images/             # Image folder
 │   └── photo.jpg       # Personal Photos
 └── (Other resource files)
@@ -123,5 +125,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Project Link: [https://github.com/elowendeng/elowendeng.github.io](https://github.com/elowendeng/elowendeng.github.io)
 
 ---
+
 
 **If you find this project helpful, please give it a ⭐️!**
