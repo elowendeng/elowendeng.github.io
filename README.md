@@ -2,15 +2,15 @@
 
 Personal Academic Website
 
-🌐**Online Access**: [https://elowendeng.github.io](https://elowendeng.github.io)
+**Online Access**: [https://elowendeng.github.io](https://elowendeng.github.io)
 
 ---
 
-## 📋 About
+## About
 
 This is my personal academic website with a clean two-column layout, featuring personal information, research interests, news updates, academic experience, and more. The site supports **dark/light mode toggle** and **real-time search functionality**.
 
-### ✨ Features
+### Features
 
 - **Clean and Modern Design** - Two-column layout: fixed personal information on the left, scrollable content on the right.
 
@@ -24,7 +24,7 @@ This is my personal academic website with a clean two-column layout, featuring p
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **HTML5** - Page Structure
 
@@ -38,7 +38,7 @@ This is my personal academic website with a clean two-column layout, featuring p
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 elowendeng.github.io/
@@ -52,7 +52,7 @@ elowendeng.github.io/
 
 ---
 
-## 🚀 Run Locally
+## Run Locally
 
 1. **Clone the repository**
    
@@ -78,7 +78,7 @@ elowendeng.github.io/
 
 ---
 
-## 🎨 Customization Guide
+## Customization Guide
 
 ### Edit Personal Information
 
@@ -113,15 +113,15 @@ Adjust CSS variables in the `<style>` tag:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📬 Contact
+## Contact
 
-邓楠 (Nan Deng) - [cbhsfmf0206@gmail.com](mailto:cbhsfmf0206@gmail.com)
+Nan Deng - [cbhsfmf0206@gmail.com](mailto:cbhsfmf0206@gmail.com)
 
 Project Link: [https://github.com/elowendeng/elowendeng.github.io](https://github.com/elowendeng/elowendeng.github.io)
 
