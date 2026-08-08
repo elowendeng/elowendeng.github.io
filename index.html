@@ -300,10 +300,11 @@
             margin-bottom: 1.8rem;
         }
 
+        /* 修改图片形状 */
         .avatar img {
-            width: 130px;
+            width: 180px;
             height: 130px;
-            border-radius: 50%;
+            border-radius: 12px;
             object-fit: cover;
             box-shadow: 0 10px 25px -8px rgba(0,0,0,0.1);
         }
@@ -568,6 +569,22 @@
                 width: 100%;
             }
         }
+
+        /* 强制覆盖所有链接默认样式 */
+        a.inline-link,
+        a.inline-link:link,
+        a.inline-link:visited {
+            color: #3b82f6 !important;
+            text-decoration: none !important;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a.inline-link:hover,
+        a.inline-link:active {
+            color: #1e4f9e !important;
+            text-decoration: underline !important;
+        }
     </style>
 </head>
 <body>
@@ -612,7 +629,7 @@
             <h1>Nan Deng</h1>
             <div class="role">University of Macau</div>
             <div class="bio-text">
-                Faculty of Science and Technology <br>Computer Vision Laboratory
+                Faculty of Information Science and Computing
             </div>
             
             <!-- 联系方式 -->
@@ -636,14 +653,14 @@
             <!-- 自我介绍区域 -->
             <div class="intro-section">
                 <div class="intro-text">
-                    I am a master student from the <strong>Computer Vision Laboratory</strong>, FST, University of Macau. 
-                    Supervised by <a href="https://aimerykong.github.io/" class="inline-link" target="_blank">Pro. Shu Kong</a>.
+                    I am a master student from the <strong>Visual Intelligence Lab</strong>, FIC, University of Macau. 
+                    Supervised by <a href="https://aimerykong.github.io/" class="inline-link" target="_blank">Pro. Shu Kong</a>. My research focuses on personalized object localization.
                 </div>
             </div>
 
             <!-- News 区域-->
             <section>
-                <h2><i class="fas fa-newspaper"></i> News</h2>
+                <h2><i class="fas fa-bullhorn"></i> News</h2>
                 
                 <div class="news-item">
                     <span class="news-date">Feb 15th, 2026</span>
@@ -651,27 +668,36 @@
                 </div>
             </section>
 
-            <!-- 出版项目 -->
+            <!-- Workshops 区域-->
             <section>
-                <h2><i class="fas fa-book-open"></i> Publications</h2>
+                <h2><i class="fas fa-users"></i> Workshops</h2>
                 
-                <div class="pub-none">
-                    None
+                <div class="news-list">
+                    <span class="news-content">The Personalized Visual Intelligence Workshop → <a href="https://personalized-visual-intelligence.github.io/" class="inline-link" target="_blank">1st at ACCV'26</a></span>
                 </div>
             </section>
 
-            <!-- 个人经历 -->
+            <!-- Publications 区域 -->
             <section>
-                <h2><i class="fas fa-briefcase"></i> Experience</h2>
+                <h2><i class="fas fa-book-open"></i> Publications</h2>
+                
+                <div class="pub-item">
+                    <i class="fas fa-spinner"></i>
+                </div>
+            </section>
+
+            <!-- Education 区域 -->
+            <section>
+                <h2><i class="fas fa-graduation-cap"></i> Education</h2>
                 
                 <div class="exp-item">
                     <div class="exp-header">
                         <h3>M.Sc. in Artificial Intelligence</h3>
-                        <span class="exp-date">2025 – present</span>
+                        <span class="exp-date">2025 – 2027</span>
                     </div>
-                    <div class="exp-sub"><a href="https://www.fst.um.edu.mo/" class="inline-link" target="_blank">Faculty of Science and Technology</a> · <a href="https://www.um.edu.mo/zh-hant/" class="inline-link" target="_blank">University of Macau</a></div>
+                    <div class="exp-sub"><a href="https://www.fst.um.edu.mo/" class="inline-link" target="_blank">Faculty of Information Science and Computing</a> · <a href="https://www.um.edu.mo/zh-hant/" class="inline-link" target="_blank">University of Macau</a></div>
                     <div class="exp-desc">
-                        Computer Vision Laboratory, supervised by Professor Shu Kong.
+                        Visual Intelligence Lab, supervised by Pro. Shu Kong.
                     </div>
                 </div>
 
@@ -682,7 +708,7 @@
                     </div>
                     <div class="exp-sub"><a href="https://cs.cug.edu.cn/" class="inline-link" target="_blank">School of Computer Science</a> · <a href="https://www.cug.edu.cn/" class="inline-link" target="_blank">China University of Geosciences (Wuhan)</a></div>
                     <div class="exp-desc">
-                        Graduated with bachelor degree.
+                        Undergraduate thesis was supervised by Pro. Ruyi Feng.
                     </div>
                 </div>
             </section>
