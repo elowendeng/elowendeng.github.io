@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nan Deng</title>
-    <!-- Inter font (clean English font) -->
+    <!-- Favicon: 网页标签图标 -->
+    <link rel="icon" type="image/jpg" href="images/pidove.jpg">
+    <!-- 如果使用 .ico 文件，请改为: <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"> -->
+
+    <!-- Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
     <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== 全局样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +30,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* 暗黑模式样式 */
+        /* 暗黑模式 */
         body.dark-mode {
             background-color: #1a1a1a;
             color: #e5e7eb;
@@ -41,7 +46,9 @@
         body.dark-mode .bio-text,
         body.dark-mode .exp-sub,
         body.dark-mode .exp-date,
-        body.dark-mode .pub-venue {
+        body.dark-mode .pub-venue,
+        body.dark-mode .contact-sub,
+        body.dark-mode .address-item {
             color: #9ca3af;
         }
 
@@ -62,11 +69,23 @@
             color: #fff;
         }
 
-        body.dark-mode .exp-desc {
+        body.dark-mode .exp-desc,
+        body.dark-mode .news-content,
+        body.dark-mode .workshop-dot-item {
             color: #d1d5db;
         }
 
-        /* 右上角按钮容器 */
+        body.dark-mode .news-date {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: #e5e7eb;
+        }
+
+        /* 右上角按钮容器 (主题切换) */
         .top-right-buttons {
             position: fixed;
             top: 20px;
@@ -76,7 +95,6 @@
             gap: 10px;
         }
 
-        /* 主题切换按钮 */
         .theme-toggle {
             background: white;
             border: 1px solid #e5e7eb;
@@ -88,12 +106,7 @@
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
-        }
-
-        body.dark-mode .theme-toggle {
-            background: #2d2d2d;
-            border-color: #404040;
-            color: #e5e7eb;
+            font-size: 0.95rem;
         }
 
         .theme-toggle:hover {
@@ -103,181 +116,14 @@
 
         .theme-toggle i {
             font-size: 1.1rem;
-            color: #fbbf24; /* 太阳颜色 */
+            color: #fbbf24;
         }
 
         body.dark-mode .theme-toggle i {
-            color: #a78bfa; /* 月亮颜色 */
+            color: #a78bfa;
         }
 
-        /* 搜索按钮 */
-        .search-btn {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 40px;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-        }
-
-        body.dark-mode .search-btn {
-            background: #2d2d2d;
-            border-color: #404040;
-            color: #e5e7eb;
-        }
-
-        .search-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .search-btn i {
-            font-size: 1.1rem;
-            color: #3b82f6; /* 蓝色 */
-        }
-
-        body.dark-mode .search-btn i {
-            color: #60a5fa; /* 暗黑模式下的蓝色 */
-        }
-
-        /* 搜索模态框 */
-        .search-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-
-        .search-modal.active {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 100px;
-        }
-
-        .search-container {
-            background: white;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        body.dark-mode .search-container {
-            background: #2d2d2d;
-            border: 1px solid #404040;
-        }
-
-        .search-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .search-header h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .close-search {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #6b7280;
-        }
-
-        .close-search:hover {
-            color: #111;
-        }
-
-        body.dark-mode .close-search:hover {
-            color: #fff;
-        }
-
-        .search-input-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #e5e7eb;
-            border-radius: 40px;
-            padding: 8px 16px;
-        }
-
-        body.dark-mode .search-input-wrapper {
-            border-color: #404040;
-        }
-
-        .search-input-wrapper i {
-            color: #9ca3af;
-        }
-
-        #searchInput {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            padding: 8px 0;
-            background: transparent;
-        }
-
-        body.dark-mode #searchInput {
-            color: #e5e7eb;
-        }
-
-        .search-results {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .search-result-item {
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-            cursor: pointer;
-            transition: background 0.1s;
-        }
-
-        body.dark-mode .search-result-item {
-            border-bottom-color: #404040;
-        }
-
-        .search-result-item:hover {
-            background: #f3f4f6;
-        }
-
-        body.dark-mode .search-result-item:hover {
-            background: #374151;
-        }
-
-        .result-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .result-category {
-            font-size: 0.8rem;
-            color: #6b7280;
-        }
-
-        .no-results {
-            padding: 20px;
-            text-align: center;
-            color: #6b7280;
-        }
-
-        /* 两栏布局容器 */
+        /* 两栏布局 */
         .main {
             display: flex;
             min-height: 100vh;
@@ -300,7 +146,6 @@
             margin-bottom: 1.8rem;
         }
 
-        /* 修改图片形状 */
         .avatar img {
             width: 180px;
             height: 130px;
@@ -329,11 +174,73 @@
             font-size: 0.95rem;
         }
 
-        /* 联系链接 */
+        /* 左侧栏导航链接（页面切换） */
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1.5rem;
+        }
+
+        body.dark-mode .sidebar-nav {
+            border-top-color: #404040;
+        }
+
+        .nav-link {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.3rem 0;
+            transition: color 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-link i {
+            width: 20px;
+            font-size: 0.95rem;
+            color: #6b7280;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #111;
+        }
+
+        .nav-link.active i {
+            color: #3b82f6;
+        }
+
+        body.dark-mode .nav-link {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .nav-link:hover,
+        body.dark-mode .nav-link.active {
+            color: #fff;
+        }
+
+        body.dark-mode .nav-link.active i {
+            color: #60a5fa;
+        }
+
+        /* 联系方式 */
         .contact-links {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
+            margin-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1.5rem;
+        }
+
+        body.dark-mode .contact-links {
+            border-top-color: #404040;
         }
 
         .contact-links a {
@@ -364,6 +271,15 @@
         .content {
             flex: 1;
             max-width: 700px;
+        }
+
+        /* 页面切换容器 */
+        .page {
+            display: none;
+        }
+
+        .page.active-page {
+            display: block;
         }
 
         /* 自我介绍区域 */
@@ -413,13 +329,12 @@
             width: 28px;
         }
 
-        /* News 区域样式 */
+        /* 2. News 区域 */
         .news-item {
             display: flex;
             align-items: baseline;
             gap: 1rem;
             padding: 0.6rem 0;
-            border-bottom: 1px solid #e5e7eb;
         }
 
         .news-date {
@@ -434,67 +349,52 @@
             font-size: 0.95rem;
         }
 
-        body.dark-mode .news-item {
-            border-bottom-color: #404040;
+        .workshop-list {
+            list-style: none;
+            padding-left: 0;
         }
 
-        body.dark-mode .news-date {
-            color: #9ca3af;
+        .workshop-dot-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            color: #374151;
         }
 
-        body.dark-mode .news-content {
-            color: #d1d5db;
+        .workshop-dot-item::before {
+            content: "•";
+            color: #000000; /* 纯黑色 */
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+            margin-right: 0.2rem;
         }
 
-        /* 出版项目列表 */
+        body.dark-mode .workshop-dot-item::before {
+            color: #ffffff;
+        }
+
+        /* Publications 列表 */
         .pub-item {
             margin-bottom: 1.8rem;
         }
 
-        .pub-none {
+        .pub-empty {
             color: #6b7280;
             font-style: italic;
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed #e5e7eb;
+            padding: 2rem 1rem;
+            text-align: center;
+            border: 1px dashed #e5e7eb;
+            border-radius: 16px;
+            background: #fafafa;
         }
 
-        .pub-title {
-            font-size: 1.15rem;
-            font-weight: 520;
-            margin-bottom: 0.2rem;
-        }
-
-        .pub-title a {
-            color: #111827;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.1s;
-        }
-
-        .pub-title a:hover {
-            border-bottom-color: #111;
-        }
-
-        .pub-authors {
-            color: #4b5563;
-            font-size: 0.9rem;
-            margin-bottom: 0.1rem;
-        }
-
-        .pub-venue {
-            color: #6b7280;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        .pub-tag {
-            background: #f0f2f5;
-            color: #2d2d3a;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 0.3rem;
+        body.dark-mode .pub-empty {
+            border-color: #404040;
+            background: #262626;
+            color: #9ca3af;
         }
 
         /* 经历条目 */
@@ -533,14 +433,124 @@
         }
 
         /* 链接样式 */
-        .exp-sub a {
+        .exp-sub a,
+        a.inline-link,
+        a.inline-link:link,
+        a.inline-link:visited {
+            color: #3b82f6 !important;
+            text-decoration: none !important;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .exp-sub a:hover,
+        a.inline-link:hover,
+        a.inline-link:active {
+            color: #1e4f9e !important;
+            text-decoration: underline !important;
+        }
+
+        /* Contact 页面样式 */
+        .contact-section {
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            font-size: 1.5rem;
+            font-weight: 560;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-section h2 i {
+            color: #6b7280;
+            font-size: 1.3rem;
+            width: 28px;
+        }
+
+        .contact-block {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .contact-block {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+
+        .contact-block-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-block-title i {
+            color: #3b82f6;
+            width: 22px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.6rem 0;
+            font-size: 0.98rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        body.dark-mode .contact-item {
+            border-bottom-color: #404040;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-item i {
+            width: 20px;
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .contact-item a {
             color: #3b82f6;
             text-decoration: none;
             transition: color 0.15s;
         }
 
-        .exp-sub a:hover {
+        .contact-item a:hover {
             color: #1e4f9e;
+            text-decoration: underline;
+        }
+
+        .contact-item .label {
+            font-weight: 500;
+            color: #374151;
+            min-width: 80px;
+        }
+
+        body.dark-mode .contact-item .label {
+            color: #d1d5db;
+        }
+
+        .address-text {
+            color: #374151;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            padding-left: 32px;
+        }
+
+        body.dark-mode .address-text {
+            color: #d1d5db;
         }
 
         hr {
@@ -568,164 +578,187 @@
                 position: static;
                 width: 100%;
             }
-        }
-
-        /* 强制覆盖所有链接默认样式 */
-        a.inline-link,
-        a.inline-link:link,
-        a.inline-link:visited {
-            color: #3b82f6 !important;
-            text-decoration: none !important;
-            font-weight: 500;
-            transition: color 0.15s;
-        }
-
-        a.inline-link:hover,
-        a.inline-link:active {
-            color: #1e4f9e !important;
-            text-decoration: underline !important;
+            .sidebar-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+                border-top: none;
+                padding-top: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 右上角按钮容器 -->
+    <!-- 右上角按钮容器 (主题切换) -->
     <div class="top-right-buttons">
-        <!-- 搜索按钮 -->
-        <div class="search-btn" id="searchBtn">
-            <i class="fas fa-search"></i>
-            <span>Search</span>
-        </div>
-        <!-- 黑白模式切换按钮 -->
         <div class="theme-toggle" id="themeToggle">
             <i class="fas fa-sun"></i>
             <span>Light / Dark</span>
         </div>
     </div>
 
-    <!-- 搜索模态框 -->
-    <div class="search-modal" id="searchModal">
-        <div class="search-container">
-            <div class="search-header">
-                <h3>Search</h3>
-                <button class="close-search" id="closeSearchBtn">&times;</button>
-            </div>
-            <div class="search-input-wrapper">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Type to search...">
-            </div>
-            <div class="search-results" id="searchResults">
-                <!-- 搜索结果会动态显示在这里 -->
-            </div>
-        </div>
-    </div>
-
     <div class="main">
-        <!-- 左侧个人信息区 -->
+        <!-- ===== 左侧边栏 ===== -->
         <aside class="sidebar">
             <div class="avatar">
-                <!-- 照片命名为 photo.jpg 放在 images 文件夹 -->
-                <img src="images/photo_v2.JPG">
+                <img src="images/photo_v2.JPG" alt="Nan Deng">
             </div>
             <h1>Nan Deng</h1>
             <div class="role">University of Macau</div>
             <div class="bio-text">
                 Faculty of Information Science and Computing
             </div>
-            
+
+            <!-- 页面导航 -->
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-page="home"><i class="fas fa-house"></i> Home</a>
+                <a href="#" class="nav-link" data-page="publication"><i class="fas fa-book-open"></i> Publication</a>
+                <a href="#" class="nav-link" data-page="contact"><i class="fas fa-address-card"></i> Contact</a>
+            </nav>
+
             <!-- 联系方式 -->
-            <div class="contact-links">
+            <div class="contact-links" id="sidebarContactLinks">
                 <a href="#"><i class="fas fa-map-marker-alt"></i> Macau · China</a>
-                <a href="mailto:elowenandeng@gmail.com">
-                    <i class="far fa-envelope"></i> elowenandeng@gmail.com
-                </a>
-                <a href="mailto:cbhsfmf0206@gmail.com">
-                    <i class="far fa-envelope"></i> cbhsfmf0206@gmail.com
-                </a>
                 <a href="https://github.com/elowendeng" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i> github.com/elowendeng
                 </a>
-                <a href="https://www.linkedin.com/in/elowen-nandeng/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.linkedin.com/in/elowen-nandeng/" target="_blank">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
             </div>
         </aside>
 
-        <!-- 右侧主要内容区 -->
+        <!-- ===== 右侧主内容区 ===== -->
         <main class="content">
-            <!-- 自我介绍区域 -->
-            <div class="intro-section">
-                <div class="intro-text">
-                    I am a master student from the <strong>Visual Intelligence Lab</strong>, FIC, UMacau. Supervised by <a href="https://aimerykong.github.io/" class="inline-link" target="_blank">Pro. Shu Kong</a>. My research focuses on personalized object localization.
+            <!-- ===== Home 页面 ===== -->
+            <div id="page-home" class="page active-page">
+                <!-- 自我介绍 -->
+                <div class="intro-section">
+                    <div class="intro-text">
+                        I am a master student from the <strong>Visual Intelligence Lab</strong>, FIC, UMacau. Supervised by <a href="https://aimerykong.github.io/" class="inline-link" target="_blank">Pro. Shu Kong</a>. My research focuses on personalized object localization.
+                    </div>
                 </div>
+
+                <!-- News -->
+                <section>
+                    <h2><i class="fas fa-bullhorn"></i> News</h2>
+                    <div class="news-item">
+                        <span class="news-date">Feb 15th, 2026</span>
+                        <span class="news-content">Having my personal website! 👻</span>
+                    </div>
+                </section>
+
+                <!-- Workshops -->
+                <section>
+                    <h2><i class="fas fa-users"></i> Workshops</h2>
+                    <ul class="workshop-list">
+                        <li class="workshop-dot-item">
+                            The Personalized Visual Intelligence Workshop → 
+                            <a href="https://personalized-visual-intelligence.github.io/" class="inline-link" target="_blank">1st at ACCV'26</a>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Experience -->
+                <section>
+                    <h2><i class="fas fa-graduation-cap"></i> Experiences</h2>
+                    <div class="exp-item">
+                        <div class="exp-header">
+                            <h3>M.Sc. in Artificial Intelligence</h3>
+                            <span class="exp-date">2025 – 2027</span>
+                        </div>
+                        <div class="exp-sub">
+                            <a href="https://www.fic.um.edu.mo/" class="inline-link" target="_blank">Faculty of Information Science and Computing</a> · 
+                            <a href="https://www.um.edu.mo/" class="inline-link" target="_blank">University of Macau</a>
+                        </div>
+                        <div class="exp-desc">
+                            Visual Intelligence Lab, supervised by Pro. Shu Kong.
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-header">
+                            <h3>B.E. in Computer Science and Technology</h3>
+                            <span class="exp-date">2019 – 2023</span>
+                        </div>
+                        <div class="exp-sub">
+                            <a href="https://cs.cug.edu.cn/" class="inline-link" target="_blank">Faculty of Computer Science</a> · 
+                            <a href="https://www.cug.edu.cn/" class="inline-link" target="_blank">China University of Geosciences (Wuhan)</a>
+                        </div>
+                        <div class="exp-desc">
+                            Undergraduate thesis was supervised by Pro. Ruyi Feng.
+                        </div>
+                    </div>
+                </section>
+
+                <footer>© Elowen · Nan Deng</footer>
             </div>
 
-            <!-- News 区域-->
-            <section>
-                <h2><i class="fas fa-bullhorn"></i> News</h2>
-                
-                <div class="news-item">
-                    <span class="news-date">Feb 15th, 2026</span>
-                    <span class="news-content">Having my personal website! 👻</span>
-                </div>
-            </section>
-
-            <!-- Workshops 区域-->
-            <section>
-                <h2><i class="fas fa-users"></i> Workshops</h2>
-                
-                <div class="news-list">
-                    <span class="news-content">The Personalized Visual Intelligence Workshop → <a href="https://personalized-visual-intelligence.github.io/" class="inline-link" target="_blank">1st at ACCV'26</a></span>
-                </div>
-            </section>
-
-            <!-- Publications 区域 -->
-            <section>
-                <h2><i class="fas fa-book-open"></i> Publications</h2>
-                
-                <div class="pub-item">
-                    <i class="fas fa-spinner"></i>
-                </div>
-            </section>
-
-            <!-- Education 区域 -->
-            <section>
-                <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-                
-                <div class="exp-item">
-                    <div class="exp-header">
-                        <h3>M.Sc. in Artificial Intelligence</h3>
-                        <span class="exp-date">2025 – 2027</span>
+            <!-- ===== Papers 页面 ===== -->
+            <div id="page-publication" class="page">
+                <section>
+                    <h2><i class="fas fa-pen-to-square"></i> Papers</h2>
+                    <div class="pub-empty">
+                        <i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> Papers will be updated soon.
                     </div>
-                    <div class="exp-sub"><a href="https://www.fic.um.edu.mo/" class="inline-link" target="_blank">Faculty of Information Science and Computing</a> · <a href="https://www.um.edu.mo/" class="inline-link" target="_blank">University of Macau</a></div>
-                    <div class="exp-desc">
-                        Visual Intelligence Lab, supervised by Pro. Shu Kong.
-                    </div>
-                </div>
+                </section>
+                <footer>© Elowen · Nan Deng</footer>
+            </div>
 
-                <div class="exp-item">
-                    <div class="exp-header">
-                        <h3>B.E. in Computer Science and Technology</h3>
-                        <span class="exp-date">2019 – 2023</span>
-                    </div>
-                    <div class="exp-sub"><a href="https://cs.cug.edu.cn/" class="inline-link" target="_blank">Faculty of Computer Science</a> · <a href="https://www.cug.edu.cn/" class="inline-link" target="_blank">China University of Geosciences (Wuhan)</a></div>
-                    <div class="exp-desc">
-                        Undergraduate thesis was supervised by Pro. Ruyi Feng.
-                    </div>
-                </div>
-            </section>
+            <!-- ===== Contact 页面 ===== -->
+            <div id="page-contact" class="page">
+                <section class="contact-section">
+                    <h2><i class="fas fa-paper-plane"></i> Contact</h2>
 
-            <!-- 简单的 footer -->
-            <footer>
-                © Elowen · Nan Deng
-            </footer>
+                    <!-- Email 板块 -->
+                    <div class="contact-block">
+                        <div class="contact-block-title">
+                            <i class="fas fa-envelope"></i> Email
+                        </div>
+                        <div class="contact-item">
+                            <i class="far fa-at"></i>
+                            <span class="label">Primary</span>
+                            <a href="mailto:cbhsfmf0206@gmail.com">cbhsfmf0206@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="far fa-at"></i>
+                            <span class="label">Academic</span>
+                            <a href="mailto:elowenandeng@gmail.com">elowenandeng@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="far fa-at"></i>
+                            <span class="label">University</span>
+                            <a href="mailto:mc55261@um.edu.mo">mc55261@um.edu.mo</a>
+                        </div>
+                    </div>
+
+                    <!-- Address 板块 -->
+                    <div class="contact-block">
+                        <div class="contact-block-title">
+                            <i class="fas fa-map-pin"></i> Address - UMacau
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-building"></i>
+                            <span class="label">Office</span>
+                            <span>Position 5A, Room 2021, E11</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-school"></i>
+                            <span class="label">Campus</span>
+                            <span>University of Macau, Taipa, Macau SAR, China</span>
+                        </div>
+                    </div>
+                </section>
+                <footer>© Elowen · Nan Deng</footer>
+            </div>
         </main>
     </div>
 
-    <!-- 黑白模式切换 JavaScript -->
     <script>
+        // ===== 主题切换 =====
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const icon = themeToggle.querySelector('i');
 
-        // 检查本地存储中的主题设置
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             body.classList.add('dark-mode');
@@ -735,8 +768,6 @@
 
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
-            // 切换图标
             if (body.classList.contains('dark-mode')) {
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
@@ -748,92 +779,33 @@
             }
         });
 
-        // 搜索功能
-        const searchBtn = document.getElementById('searchBtn');
-        const searchModal = document.getElementById('searchModal');
-        const closeSearchBtn = document.getElementById('closeSearchBtn');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
+        // ===== 页面切换 =====
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = {
+            home: document.getElementById('page-home'),
+            publication: document.getElementById('page-publication'),
+            contact: document.getElementById('page-contact'),
+        };
 
-        // 页面内容数据（用于搜索）
-        //const searchData = [
-            //{ title: "M.Sc. in Artificial Intelligence", category: "Experience", content: "Faculty of Science and Technology, University of Macau" },
-            //{ title: "B.E. in Computer Science and Technology", category: "Experience", content: "China University of Geosciences (Wuhan)" },
-            //{ title: "Computer Vision Laboratory", category: "Research", content: "Supervised by Pro. Shu Kong" },
-            //{ title: "Personal website launch", category: "News", content: "Feb 15th, 2026" },
-            //{ title: "GitHub", category: "Contact", content: "github.com/elowendeng" },
-            //{ title: "LinkedIn", category: "Contact", content: "linkedin.com/in/elowen-nandeng" }
-        //];
-
-        // 打开搜索模态框
-        searchBtn.addEventListener('click', () => {
-            searchModal.classList.add('active');
-            searchInput.focus();
-        });
-
-        // 关闭搜索模态框
-        closeSearchBtn.addEventListener('click', () => {
-            searchModal.classList.remove('active');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-        });
-
-        // 点击模态框背景关闭
-        searchModal.addEventListener('click', (e) => {
-            if (e.target === searchModal) {
-                searchModal.classList.remove('active');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
+        function switchPage(pageId) {
+            Object.values(pages).forEach(p => p.classList.remove('active-page'));
+            if (pages[pageId]) {
+                pages[pageId].classList.add('active-page');
             }
-        });
-
-        // 搜索功能
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            
-            if (query === '') {
-                searchResults.innerHTML = '';
-                return;
-            }
-
-            const results = searchData.filter(item => 
-                item.title.toLowerCase().includes(query) || 
-                item.content.toLowerCase().includes(query)
-            );
-
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">No results found</div>';
-                return;
-            }
-
-            let html = '';
-            results.forEach(result => {
-                html += `
-                    <div class="search-result-item">
-                        <div class="result-title">${result.title}</div>
-                        <div class="result-category">${result.category}</div>
-                    </div>
-                `;
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
             });
-            searchResults.innerHTML = html;
+        }
 
-            // 点击搜索结果
-            document.querySelectorAll('.search-result-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    searchModal.classList.remove('active');
-                    searchInput.value = '';
-                    searchResults.innerHTML = '';
-                });
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                switchPage(page);
             });
-        });
-
-        // 按 ESC 键关闭搜索
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && searchModal.classList.contains('active')) {
-                searchModal.classList.remove('active');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
-            }
         });
     </script>
 </body>
